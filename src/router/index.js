@@ -1,15 +1,15 @@
 import Router from 'koa-router'
-import UserController from './../controller/userController'
+import user from './user'
+import goods from './goods'
 
-const router = new Router()
+// export default [user,goods]
 
-router.prefix('/user')
+const routes = [user,goods]
 
-router
-    .get('/', function (ctx, next) {
-        ctx.body = 'Hello World!';
-      })
-    .get('/getUser', UserController.getAllUser)
-    .get('/getUserById', UserController.getUserById)
+const router = new Router;
+// 在router中use子路由
+for(let route of routes){
+    router.use(route.routes());
+}
 
-export default router
+export default router;
